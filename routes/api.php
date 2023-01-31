@@ -24,3 +24,8 @@ Route::get('/galleries/{id}', 'GalleryController@show');
 Route::post('galleries','GalleryController@store');
 Route::put('galleries/{id}','GalleryController@update');
 Route::delete('galleries/{id}','GalleryController@destroy');
+
+Route::get('authors/{id}', 'UserController@show');
+
+Route::post('galleries/{id}/comments','CommentController@store');
+Route::delete('galleries/comments/{id}','CommentController@destroy');

@@ -16,7 +16,7 @@ class GalleryRequest extends FormRequest
         return [
             'title'=>'required|min:2|max:255',
             'description'=>'required|max:1000',
-            'url'=>'required'
+            'url'=>['required', 'regex:~^(http(s?):)([/|.|\w|\s|-])*\.(?:jpe?g|png)$~'],
         ];
     }
 }

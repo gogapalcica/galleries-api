@@ -16,7 +16,7 @@ class GalleryController extends Controller
 
     public function index()
     {
-        $galleries = Gallery::all();
+        $galleries = Gallery::with('user')->latest()->paginate(10);
 
         return $galleries;
 
