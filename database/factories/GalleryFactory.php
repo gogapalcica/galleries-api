@@ -12,7 +12,7 @@ class GalleryFactory extends Factory
         return [
             'title'=>fake()->domainName(),
             'description'=>fake()->sentence(),
-            'url'=> fake()->imageUrl(),
+            'url'=> array(fake()->imageUrl()),
             'user_id' => User::inRandomOrder()->first()->id,
         ];
     }

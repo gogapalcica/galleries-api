@@ -11,20 +11,24 @@ class GalleryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth',['except' => ['index']]);
+        $this->middleware('auth', ['except' => ['index']]);
     }
 
     public function index()
     {
-        $galleries = Gallery::with('user')->latest()->paginate(10);
-
+        $galleries =  Gallery::with('user')->orderBy('id', 'desc')->paginate(10);
+        if ($galleries->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'There are no galleries created',
+            ], 404);
+        };
         return $galleries;
-
     }
 
     public function show($id)
     {
-        return Gallery::findOrFail($id);
+        return Gallery::with('user')->with('comments')->findOrFail($id);
     }
 
     public function store(GalleryRequest $request)

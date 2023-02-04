@@ -14,6 +14,6 @@ class UserController extends Controller
 
     public function show($id)
     {
-        return User::with('galleries')->findOrFail($id);
+        return User::findOrFail($id)->galleries()->paginate(10);
     }
 }
