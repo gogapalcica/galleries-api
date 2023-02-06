@@ -33,6 +33,9 @@ class GalleryController extends Controller
 
     public function store(GalleryRequest $request)
     {
+        if (!$request->input('description')) {
+            $request->merge(['description' => '']);
+        }
         $newGallery = $request->all();
         $newGallery['user_id'] = Auth::user()->id;
         return Gallery::create($newGallery);
@@ -40,9 +43,10 @@ class GalleryController extends Controller
 
     public function update(GalleryRequest $request, $id)
     {
-        $gallery = Gallery::findOrFail($id);
-        $gallery->update($request->all());
-        return $gallery;
+        if (!$request->input('description')) {
+            $request->merge(['description' => '']);
+        }
+        return Gallery::findOrFail($id)->update($request->all());
     }
 
     public function destroy($id)
